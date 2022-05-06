@@ -32,6 +32,11 @@
         "funobtenerpropietario": {
           "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
           "s3Key": "amplify-builds/funobtenerpropietario-5569452b6b4c37566f6e-build.zip"
+        },
+        "funviviendaservice": {
+          "secretsPathAmplifyAppId": "d4iiuw3h9e10g",
+          "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
+          "s3Key": "amplify-builds/funviviendaservice-6245556a686a44763549-build.zip"
         }
       }
     }
