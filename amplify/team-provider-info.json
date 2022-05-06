@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-viviendaapp-dev-115016-authRole",
+      "UnauthRoleArn": "arn:aws:iam::530526123093:role/amplify-viviendaapp-dev-115016-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::530526123093:role/amplify-viviendaapp-dev-115016-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
+      "UnauthRoleName": "amplify-viviendaapp-dev-115016-unauthRole",
+      "StackName": "amplify-viviendaapp-dev-115016",
+      "StackId": "arn:aws:cloudformation:us-east-1:530526123093:stack/amplify-viviendaapp-dev-115016/f0649060-cd21-11ec-9733-0a82a1a9cb73",
+      "AmplifyAppId": "d4iiuw3h9e10g"
+    }
+  }
+}

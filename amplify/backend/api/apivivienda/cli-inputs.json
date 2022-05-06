@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "paths": {
+    "/inmueble/new": {
+      "name": "/inmueble/new",
+      "lambdaFunction": "funnuevoinmueble",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/inmueble/{id}": {
+      "name": "/inmueble/{id}",
+      "lambdaFunction": "funobtenerinmueble",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/inmuebles": {
+      "name": "/inmuebles",
+      "lambdaFunction": "funobtenerinmuebles",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/inmueble/{id}/borrar": {
+      "name": "/inmueble/{id}/borrar",
+      "lambdaFunction": "funborrarinmueble",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/propietario/{id}": {
+      "name": "/propietario/{id}",
+      "lambdaFunction": "funobtenerpropietario",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
