@@ -3,6 +3,9 @@
   "permissions": {
     "function": {
       "funviviendaservice": [
+        "create",
+        "read",
+        "update",
         "delete"
       ]
     }

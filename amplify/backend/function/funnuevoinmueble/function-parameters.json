@@ -3,7 +3,10 @@
   "permissions": {
     "function": {
       "funviviendaservice": [
-        "create"
+        "create",
+        "read",
+        "update",
+        "delete"
       ]
     }
   }
