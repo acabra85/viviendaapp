@@ -4,31 +4,71 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "dependsOn": []
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "funviviendaservice",
+          "attributes": [
+            "Name"
+          ]
+        }
+      ]
     },
     "funobtenerinmueble": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "dependsOn": []
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "funviviendaservice",
+          "attributes": [
+            "Name"
+          ]
+        }
+      ]
     },
     "funobtenerinmuebles": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "dependsOn": []
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "funviviendaservice",
+          "attributes": [
+            "Name"
+          ]
+        }
+      ]
     },
     "funborrarinmueble": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "dependsOn": []
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "funviviendaservice",
+          "attributes": [
+            "Name"
+          ]
+        }
+      ]
     },
     "funobtenerpropietario": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "dependsOn": []
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "funviviendaservice",
+          "attributes": [
+            "Name"
+          ]
+        }
+      ]
     },
     "funviviendaservice": {
       "build": true,
