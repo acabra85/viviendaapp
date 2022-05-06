@@ -10,6 +10,30 @@
       "StackName": "amplify-viviendaapp-dev-115016",
       "StackId": "arn:aws:cloudformation:us-east-1:530526123093:stack/amplify-viviendaapp-dev-115016/f0649060-cd21-11ec-9733-0a82a1a9cb73",
       "AmplifyAppId": "d4iiuw3h9e10g"
+    },
+    "categories": {
+      "function": {
+        "funobtenerinmuebles": {
+          "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
+          "s3Key": "amplify-builds/funobtenerinmuebles-71506761386a614c632f-build.zip"
+        },
+        "funborrarinmueble": {
+          "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
+          "s3Key": "amplify-builds/funborrarinmueble-504f4570744b50446964-build.zip"
+        },
+        "funobtenerinmueble": {
+          "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
+          "s3Key": "amplify-builds/funobtenerinmueble-414e54386b454e66676c-build.zip"
+        },
+        "funnuevoinmueble": {
+          "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
+          "s3Key": "amplify-builds/funnuevoinmueble-587a68362b6444466950-build.zip"
+        },
+        "funobtenerpropietario": {
+          "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
+          "s3Key": "amplify-builds/funobtenerpropietario-5569452b6b4c37566f6e-build.zip"
+        }
+      }
     }
   }
 }
