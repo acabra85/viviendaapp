@@ -1,9 +1,27 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import './App.css';
-import {API} from 'aws-amplify'
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from './components/navbar/navbar'
+import AllProperties from './pages/navbar/allproperties';
+import NewProperty from './pages/navbar/newproperty';
 
 function App() {
+    return (
+        <Router>
+            <NavBar />
+            <Routes>
+                <Route path='/' element={<AllProperties/>}/>
+                <Route path='/newproperty' element={<NewProperty/>}/>
+            </Routes>
+        </Router>
+    );
+}
+
+export default App;
+
+
+/*
+
     const [greeting, setGreeting] = useState(null)
 
     async function getData(path) {
@@ -61,7 +79,6 @@ function App() {
                 <h1>-[{greeting}]-</h1>
             </header>
         </div>
-    );
 }
+    );*/
 
-export default App;

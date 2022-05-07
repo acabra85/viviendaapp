@@ -25,11 +25,8 @@ function transform(payload) {
 async function createProperty(payload) {
     let transformedPayload = transform(payload);
     console.log(transformedPayload);
-    return await API.post('apivivienda', '/inmueble/new', {
+    return await API.post('apivivienda', '/inmueble', {
         headers: {
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'OPTIONS,POST',
             'Content-Type': 'application/json'
         },
         body: transformedPayload
