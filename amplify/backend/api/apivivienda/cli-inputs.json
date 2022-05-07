@@ -35,6 +35,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/startdb": {
+      "name": "/startdb",
+      "lambdaFunction": "funstartdb",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

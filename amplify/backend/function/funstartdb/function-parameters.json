@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "function": {
+      "funviviendaservice": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "cleanDb",
+      "environmentVariableName": "CLEAN_DB"
+    }
+  ]
+}

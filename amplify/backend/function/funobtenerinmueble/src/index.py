@@ -22,5 +22,5 @@ def handler(event, context):
     return {
         'statusCode': 200,
         'headers': HEADERS,
-        'body': json.loads(response["Payload"].read())
+        'body': json.loads(response["Payload"].read().decode('utf8', 'strict'))
     }

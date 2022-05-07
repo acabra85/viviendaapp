@@ -75,6 +75,20 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
       "dependsOn": []
+    },
+    "funstartdb": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "funviviendaservice",
+          "attributes": [
+            "Name"
+          ]
+        }
+      ]
     }
   },
   "api": {
@@ -117,6 +131,14 @@
         {
           "category": "function",
           "resourceName": "funobtenerpropietario",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "funstartdb",
           "attributes": [
             "Name",
             "Arn"
