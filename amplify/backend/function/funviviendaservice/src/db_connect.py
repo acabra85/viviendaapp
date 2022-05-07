@@ -21,7 +21,7 @@ def get_db_pwd_parameter(parameter_name):
         return None
 
 
-def get_db_connection():
+def get_db_connection(auto_commit=True):
     print('Connecting to db ...')
     db_rds_host = 'viviendadb1.cwfju1wpxqlz.us-east-1.rds.amazonaws.com'
     db_user = 'admin'
@@ -32,12 +32,14 @@ def get_db_connection():
         raise Exception(f"unable to retrieve db password: [{db_password}]")
 
     try:
+        # TODO transaction support must use commit with granularity
         conn = pymysql.connect(host=db_rds_host,
                                user=db_user,
                                port=3306,
                                passwd=db_password,
                                db=db_name,
                                charset='utf8',
+                               autocommit=auto_commit,
                                connect_timeout=5)
         print(f' ... connected ? [{conn.open}]')
         return conn

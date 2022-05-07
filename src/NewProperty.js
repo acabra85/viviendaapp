@@ -27,6 +27,9 @@ async function createProperty(payload) {
     console.log(transformedPayload);
     return await API.post('apivivienda', '/inmueble/new', {
         headers: {
+            'Access-Control-Allow-Headers': '*',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST',
             'Content-Type': 'application/json'
         },
         body: transformedPayload

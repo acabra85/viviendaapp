@@ -30,7 +30,9 @@ def create_db(clean_db=None):
                                       " registered_on DATETIME," \
                                       " PRIMARY KEY (ownership_id)," \
                                       " FOREIGN KEY (owner_id) REFERENCES rs_owner(owner_id), " \
-                                      " FOREIGN KEY (property_id) REFERENCES rs_properties(property_id) " \
+                                      " FOREIGN KEY (property_id) " \
+                                      "     REFERENCES rs_properties(property_id) " \
+                                      "     ON DELETE CASCADE " \
                                       ") ENGINE=InnoDB;"
         try:
             with conn.cursor() as cur:

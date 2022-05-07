@@ -22,25 +22,57 @@ def delete_property(req):
             conn.close()
 
 
-def create_or_get_owner(req):
-    pass
+def owner_exists(cursor, owner_id):
+    query_count_owner_by_id = f"SELECT COUNT(*) FROM rs_owner WHERE owner_id='{owner_id}';"
+    cursor.execute(query_count_owner_by_id)
+    result = cursor.fetchone()[0]
+    print(f"--------{query_count_owner_by_id}=[{result}]")
+    return result > 0
+
+
+def create_or_get_owner(cursor, owner, owner_id):
+    if not owner_exists(cursor, owner_id):
+        INSERT_OWNER_QUERY = "INSERT INTO `rs_owner` (owner_id, owner_name, owner_phone_number, owner_email) " \
+                  "VALUES (%s, %s, %s, %s);"
+        print(f"------{INSERT_OWNER_QUERY}")
+        args = (owner_id, owner['name'], owner['phone_number'], owner['email'])
+        return cursor.execute(INSERT_OWNER_QUERY, args) == 1
+    return True
 
 
 def new_property(req):
     print('creating property')
-    conn = get_db_connection()
-    user_id = create_or_get_owner(req)
-    insert_sql = """INSERT INTO `rs_properties` ()"""
-    property_id = None
+    conn = get_db_connection(False)
     try:
-        with conn.cursor() as cur:
-            cur.execute(insert_sql)
-        return {'result': 'newProperty', 'property_id': property_id}
+        cursor = conn.cursor()
+        insert_new_property_sql = "INSERT " \
+                                  " INTO `rs_properties` (property_address, property_district, property_rooms, " \
+                                  " property_price, property_area )" \
+                                  " VALUES (%s, %s, %s, %s, %s);"
 
+        with cursor as cur:
+            owner = req['owner']
+            owner_id = owner['id']
+            if not create_or_get_owner(cur, owner, owner_id):
+                return {'result': 'unable to create owner'}
+            print(f"-------{insert_new_property_sql}")
+            property_ids = []
+            for prop in req['properties']:
+                args = (prop['address'], prop['district'], prop['rooms'], prop['price'], prop['area'])
+                cur.execute(insert_new_property_sql, args)
+                p_id = cur.lastrowid
+                property_ids.append(p_id)
+                insert_property_ownership_sql = "INSERT" \
+                                                " INTO `rs_properties_owner` (owner_id, property_id, registered_on)" \
+                                                f" VALUES ('{owner_id}', '{p_id}', NOW());"
+                print(f"---------{insert_property_ownership_sql}")
+                cur.execute(insert_property_ownership_sql)
+            conn.commit()
+        return {'result': 'newProperty', 'property_ids': property_ids}
     except Exception as e:
         # Error while opening connection or processing
         print(e)
-        return {'result': 'unable to delete data from DB'}
+        return {'result': 'unable to update to DB'}
     finally:
         print("Closing Connection")
         if conn.open:
@@ -62,6 +94,7 @@ def get_owner(req):
     return {'result': 'getOwner'}
 
 
+# TODO sanitize inputs to prevent SQL INJECTION
 def handler(event, context):
     type_call = event['serviceCall']
     result = None
