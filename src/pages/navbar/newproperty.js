@@ -1,7 +1,6 @@
 import React from 'react';
 import {API} from 'aws-amplify'
 
-
 function transform(payload) {
     return {
         "owner": {
@@ -23,19 +22,17 @@ function transform(payload) {
 }
 
 async function createProperty(payload) {
-    let transformedPayload = transform(payload);
-    console.log(transformedPayload);
     return await API.post('apivivienda', '/inmueble', {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: transformedPayload
+        body: transform(payload)
     });
 }
 
 class NewProperty extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
         this.state = {
             district: 'sasa',
             address: 'sasa',
@@ -63,10 +60,13 @@ class NewProperty extends React.Component {
     }
 
     handleSubmit(event) {
+        let elementById = document.getElementById('submit_registration_btn');
+        elementById.disabled = true;
         event.preventDefault();
         createProperty(this.state).then(function (res) {
-            alert(JSON.stringify(res));
-        });
+            alert('registration created: ' + JSON.stringify(res));
+        })
+        .finally(() => elementById.disabled = false)
     }
 
     render() {
@@ -110,7 +110,7 @@ class NewProperty extends React.Component {
                     Area (m2):
                     <input type="number" name="area" min="1" value={this.state.area} onChange={this.handleChange} required/>
                 </label><br />
-                <input type="submit" value="Submit" />
+                <input type="submit" id="submit_registration_btn" value="Registrar" />
             </form>
         );
     }
