@@ -7,10 +7,11 @@ function getCountryList() {
         let filtered =  data.map((c) => {
             const name = c.name.common;
             const code = c.cca3;
-            const capital = c.capital && c.capital.length > 0 ? (c.capital[0] + ',') : '';
+            const capital = c.capital && c.capital.length > 0 ? (', ' + c.capital[0] ) : '';
             return {
                 key: code,
-                val: capital + name
+                val: name + capital,
+                sortBy: name
             };
         });
         q.resolve(filtered);
@@ -39,11 +40,12 @@ class Countries extends React.Component {
                 countries.set(e.key, e.val);
                 countriesList.push({
                     code: e.key,
-                    name: e.val
+                    name: e.val,
+                    sortBy: e.sortBy
                 });
             });
-            countriesList.sort((a,b) => a.name < b.name ? -1 : (a.name > b.name ? 1 : 0));
-            countriesList.unshift({code:'COL', name:'Bogota,Colombia'});
+            countriesList.sort((a,b) => a.sortBy < b.sortBy ? -1 : (a.sortBy > b.sortBy ? 1 : 0));
+            countriesList.unshift({code:'COL', name:'Colombia, Bogota'});
             countriesList.unshift({code:'_', name:' -Seleccione- '});
             _ref.setState({
                 name: countries.get('_'),
@@ -73,7 +75,7 @@ class Countries extends React.Component {
         }
         return <select name="code" value={this.state.code} onChange={this.handleChange}>
             <option value="_"> -Seleccione- </option>
-            <option value="COL">Bogota,Colombia</option>
+            <option value="COL">Colombia, Bogota</option>
         </select>;
     }
 

@@ -48,15 +48,23 @@ class AllProperties extends React.Component {
     }
 
     deleteProperty(propertyId) {
+        let success = false;
+        let elementId = 'prop_del_but_'+propertyId;
+        document.getElementById(elementId).disabled = true;
         deletePropertyRequest(propertyId).then(
             function (res) {
-                if(res && 'success' === res.result) {
+                if(res && 'Success' === res.result) {
                     alert('Propiedad Eliminada!!');
+                    success=true;
                 } else {
                     alert('Error, intentar nuevamente');
                 }
             }
-        )
+        ).finally(() => {
+            if(!success) {
+                document.getElementById(elementId).disabled = false;
+            }
+        });
     }
 
     renderPropertiesTable(properties) {
@@ -73,7 +81,7 @@ class AllProperties extends React.Component {
                         <td>{p.ownerEmail}</td>
                         <td>{p.ownerPhone}</td>
                         <td>
-                            <button type="button" onClick={() => this.deleteProperty(p.id)} >
+                            <button type="button" id={'prop_del_but_'+p.id} onClick={() => this.deleteProperty(p.id)} >
                                 Borrar
                             </button>
                         </td>

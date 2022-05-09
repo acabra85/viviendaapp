@@ -119,19 +119,12 @@ class PersistenceHelper:
         if not conn:
             return []
         try:
-            print('22')
             column_order = 'r.registered_on' if column == 'registeredOn' else 'p.property_district'
-            print('23')
             direction_order = 'ASC' if asc else 'DESC'
-            print('24')
             limit = page_size
-            print('25')
             offset = (page_size * page) - page_size
-            print('26')
             with conn.cursor() as cur:
-                print('27')
                 total = self.count_total_properties(cur)
-                print('28')
                 query = f"""SELECT p.property_id, p.property_address, p.property_district, 
                                   p.property_area, p.property_rooms, p.property_price, r.registered_on,
                                   o.owner_name, o.owner_id, o.owner_email, o.owner_phone_number
@@ -140,14 +133,10 @@ class PersistenceHelper:
                              INNER JOIN rs_owners o ON o.owner_id = r.owner_id
                              ORDER BY {column_order} {direction_order} 
                              LIMIT {limit} OFFSET {offset};"""
-                print(query)
                 cur.execute(query)
-                print('30')
                 properties = PropertyMapper.to_table_properties(cur.fetchall())
-                print('31')
             return {"result": "success", "totalRecords": total, "records": properties}
         except Exception:
-            print('32')
             print(traceback.format_exc())
             return None
         finally:
@@ -160,12 +149,11 @@ class PersistenceHelper:
             return False
         try:
             with conn.cursor() as cur:
-                delete_property_by_id_sql = f"DELETE FROM rs_properties WHERE id='{property_id}'"
-                cur.execute(delete_property_by_id_sql)
-            return True
+                delete_property_by_id_sql = f"DELETE FROM rs_properties WHERE property_id={property_id}"
+                return cur.execute(delete_property_by_id_sql) > 0
         except Exception as e:
             # Error while opening connection or processing
-            print(e)
+            print(traceback.format_exc())
             return {"result": "unable to delete data from DB"}
         finally:
             if conn.open:

@@ -19,7 +19,7 @@
         },
         "funborrarinmueble": {
           "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
-          "s3Key": "amplify-builds/funborrarinmueble-7a44767141717a41704b-build.zip"
+          "s3Key": "amplify-builds/funborrarinmueble-5364566c535274337158-build.zip"
         },
         "funobtenerinmueble": {
           "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
@@ -36,7 +36,7 @@
         "funviviendaservice": {
           "secretsPathAmplifyAppId": "d4iiuw3h9e10g",
           "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
-          "s3Key": "amplify-builds/funviviendaservice-4f6559344d774474306f-build.zip"
+          "s3Key": "amplify-builds/funviviendaservice-7849564f61796b637368-build.zip"
         },
         "funstartdb": {
           "cleanDb": "TRUE",

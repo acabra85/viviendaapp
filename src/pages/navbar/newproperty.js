@@ -104,20 +104,12 @@ class NewProperty extends React.Component {
                     <input type="text" name="address" value={this.state.address} onChange={this.handleChange} required/>
                 </label><br />
                 <label>
-                    Ciudad, Pais:
+                    Pais, Ciudad:
                     <Countries onSelectCountry={this.handleCountryChange}/>
                 </label><br />
                 <label>
                     Localidad:
-                    <select name="district" value={this.state.district} onChange={this.handleChange}>
-                        <option value="_">-Seleccion-</option>
-                        <option value="Centro">Centro</option>
-                        <option value="Norte">Norte</option>
-                        <option value="Teusaquillo">Teusaquillo</option>
-                        <option value="San Cristobal">San Cristobal</option>
-                        <option value="Usaquen">Usaquen</option>
-                        <option value="Usme">Usme</option>
-                    </select>
+                    <input type="text" name="district" value={this.state.district} onChange={this.handleChange} required/>
                 </label><br />
                 <label>
                     Precio:

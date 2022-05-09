@@ -12,12 +12,13 @@ HEADERS = {
 
 def handler(event, context):
     service_req_input = {"serviceCall": "deleteProperty", "event": event}
-
+    print('A')
     response = client.invoke(
         FunctionName='arn:aws:lambda:us-east-1:530526123093:function:funviviendaservice-dev',
         InvocationType='RequestResponse',
         Payload=json.dumps(service_req_input).encode(encoding='utf8')
     )
+    print('B')
 
     return {
         'statusCode': 200,
