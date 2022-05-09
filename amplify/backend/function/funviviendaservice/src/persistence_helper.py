@@ -1,4 +1,5 @@
 from db_connect import get_db_connection
+from mapper import PropertyMapper
 import traceback
 
 DROP_TABLE_OWNER_SQL = "DROP TABLE IF EXISTS rs_owners;"
@@ -106,10 +107,50 @@ class PersistenceHelper:
             conn.commit()
             return property_ids
         except Exception:
-            print(traceback.format_exception())
+            print(traceback.format_exc())
             return []
         finally:
             print("Closing Connection")
+            if conn.open:
+                conn.close()
+
+    def get_properties_page(self, page, page_size, column, asc):
+        conn = get_db_connection()
+        if not conn:
+            return []
+        try:
+            print('22')
+            column_order = 'r.registered_on' if column == 'registeredOn' else 'p.property_district'
+            print('23')
+            direction_order = 'ASC' if asc else 'DESC'
+            print('24')
+            limit = page_size
+            print('25')
+            offset = (page_size * page) - page_size
+            print('26')
+            with conn.cursor() as cur:
+                print('27')
+                total = self.count_total_properties(cur)
+                print('28')
+                query = f"""SELECT p.property_id, p.property_address, p.property_district, 
+                                  p.property_area, p.property_rooms, p.property_price, r.registered_on,
+                                  o.owner_name, o.owner_id, o.owner_email, o.owner_phone_number
+                             FROM rs_properties p
+                             INNER JOIN rs_property_registry r ON p.property_id=r.property_id
+                             INNER JOIN rs_owners o ON o.owner_id = r.owner_id
+                             ORDER BY {column_order} {direction_order} 
+                             LIMIT {limit} OFFSET {offset};"""
+                print(query)
+                cur.execute(query)
+                print('30')
+                properties = PropertyMapper.to_table_properties(cur.fetchall())
+                print('31')
+            return {"result": "success", "totalRecords": total, "records": properties}
+        except Exception:
+            print('32')
+            print(traceback.format_exc())
+            return None
+        finally:
             if conn.open:
                 conn.close()
 
@@ -129,3 +170,7 @@ class PersistenceHelper:
         finally:
             if conn.open:
                 conn.close()
+
+    def count_total_properties(self, cur):
+        cur.execute("SELECT COUNT(*) FROM rs_properties")
+        return cur.fetchone()[0]

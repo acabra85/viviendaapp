@@ -10,6 +10,9 @@ const NavBar = () => {
             <li>
                 <Link to="/newproperty">Nuevo Inmueble</Link>
             </li>
+            <li>
+                <Link to="/countries">Paises</Link>
+            </li>
         </div>
     );
 }

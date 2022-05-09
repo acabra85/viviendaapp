@@ -37,9 +37,25 @@ class PropertyService:
         print('get property')
         return {"result": "getProperty"}
 
-    def __get_all_properties(self, req):
+    def __get_all_properties(self):
         print('get all properties')
-        return {"result": "getAllProperties"}
+        query_params = self.event['queryStringParameters']
+        print('1')
+        page = int(query_params['page'])
+        print('2')
+        page_size = int(query_params['pageSize'])
+        print('3')
+        column = query_params['filterColumn']
+        print('4')
+        asc = query_params['asc'] == 'true'
+        print('5')
+        page_result = self.persistence.get_properties_page(page, page_size, column, asc)
+        print('6')
+        if not page_result:
+            print('7')
+            return {"result": "unable to retrieve page from BD"}
+        print('8')
+        return page_result
 
     def __get_owner(self, req):
         print('get owner')

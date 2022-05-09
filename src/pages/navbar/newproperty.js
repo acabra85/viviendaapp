@@ -1,5 +1,6 @@
 import React from 'react';
 import {API} from 'aws-amplify'
+import Countries from "./countries";
 
 function transform(payload) {
     return {
@@ -11,7 +12,7 @@ function transform(payload) {
         },
         "properties" : [
             {
-                "address": payload.address,
+                "address": payload.address + ',' + payload.country,
                 "district": payload.district,
                 "area": payload.area,
                 "rooms": payload.rooms,
@@ -34,8 +35,9 @@ class NewProperty extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            district: 'sasa',
+            district: '_',
             address: 'sasa',
+            country: '',
             price: 10,
             rooms: 3,
             area: 20,
@@ -47,6 +49,7 @@ class NewProperty extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleCountryChange = this.handleCountryChange.bind(this);
     }
 
     handleChange(event) {
@@ -56,6 +59,12 @@ class NewProperty extends React.Component {
 
         this.setState({
             [name]: value
+        });
+    }
+
+    handleCountryChange(code) {
+        this.setState({
+            country: code
         });
     }
 
@@ -95,8 +104,20 @@ class NewProperty extends React.Component {
                     <input type="text" name="address" value={this.state.address} onChange={this.handleChange} required/>
                 </label><br />
                 <label>
+                    Ciudad, Pais:
+                    <Countries onSelectCountry={this.handleCountryChange}/>
+                </label><br />
+                <label>
                     Localidad:
-                    <input type="text" name="district" value={this.state.district} onChange={this.handleChange} required/>
+                    <select name="district" value={this.state.district} onChange={this.handleChange}>
+                        <option value="_">-Seleccion-</option>
+                        <option value="Centro">Centro</option>
+                        <option value="Norte">Norte</option>
+                        <option value="Teusaquillo">Teusaquillo</option>
+                        <option value="San Cristobal">San Cristobal</option>
+                        <option value="Usaquen">Usaquen</option>
+                        <option value="Usme">Usme</option>
+                    </select>
                 </label><br />
                 <label>
                     Precio:
