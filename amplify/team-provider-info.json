@@ -15,33 +15,33 @@
       "function": {
         "funobtenerinmuebles": {
           "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
-          "s3Key": "amplify-builds/funobtenerinmuebles-35544752364273746c34-build.zip"
+          "s3Key": "amplify-builds/funobtenerinmuebles-496e59674c745632524d-build.zip"
         },
         "funborrarinmueble": {
           "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
-          "s3Key": "amplify-builds/funborrarinmueble-5364566c535274337158-build.zip"
+          "s3Key": "amplify-builds/funborrarinmueble-526e6d594542654d3449-build.zip"
         },
         "funobtenerinmueble": {
           "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
-          "s3Key": "amplify-builds/funobtenerinmueble-544c7753524739424b57-build.zip"
+          "s3Key": "amplify-builds/funobtenerinmueble-506e4147347443364d37-build.zip"
         },
         "funnuevoinmueble": {
           "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
-          "s3Key": "amplify-builds/funnuevoinmueble-72436636417450667873-build.zip"
+          "s3Key": "amplify-builds/funnuevoinmueble-312b4b42475756685936-build.zip"
         },
         "funobtenerpropietario": {
           "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
-          "s3Key": "amplify-builds/funobtenerpropietario-59304c314a334f796239-build.zip"
+          "s3Key": "amplify-builds/funobtenerpropietario-4a7849662f416b673269-build.zip"
         },
         "funviviendaservice": {
           "secretsPathAmplifyAppId": "d4iiuw3h9e10g",
           "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
-          "s3Key": "amplify-builds/funviviendaservice-7849564f61796b637368-build.zip"
+          "s3Key": "amplify-builds/funviviendaservice-33626b42656438355059-build.zip"
         },
         "funstartdb": {
           "cleanDb": "TRUE",
           "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
-          "s3Key": "amplify-builds/funstartdb-4d6f75436a6b46674d5a-build.zip"
+          "s3Key": "amplify-builds/funstartdb-6368362b35484d474879-build.zip"
         }
       }
     }

@@ -1,6 +1,6 @@
 import json
 import traceback
-from property_service import PropertyService
+from serviceapp.property_service import PropertyService
 
 
 # TODO sanitize inputs to prevent SQL INJECTION

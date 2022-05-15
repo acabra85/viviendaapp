@@ -1,4 +1,4 @@
-from persistence_helper import PersistenceHelper
+from .persistence_helper import PersistenceHelper
 import json
 
 

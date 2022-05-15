@@ -1,5 +1,5 @@
-from db_connect import get_db_connection
-from mapper import PropertyMapper
+from .db_connect import get_db_connection
+from .mapper import PropertyMapper
 import traceback
 
 DROP_TABLE_OWNER_SQL = "DROP TABLE IF EXISTS rs_owners;"
