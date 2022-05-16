@@ -1,20 +1,36 @@
 import $ from 'jquery';
 import React from 'react';
 
-function getCountryList() {
+const _mockCountryData = [
+    {name: {common: 'Colombia'}, cca3: 'COL', capital: ['Bogota']},
+    {name: {common: 'United Arab Emirates'}, cca3: 'UAE', capital: ['Dubai']},
+    {name: {common: 'Poland'}, cca3: 'POL', capital: ['Warsaw']},
+];
+const OFFLINE = true;
+
+function filterRawCountryData(data) {
+    return data.map((c) => {
+        const name = c.name.common;
+        const code = c.cca3;
+        const capital = c.capital && c.capital.length > 0 ? (', ' + c.capital[0]) : '';
+        const _capital = c.capital && c.capital.length > 0 ? (c.capital[0] + ', ') : '';
+        return {
+            key: code,
+            val: name + capital,
+            capitalCountry: _capital + name,
+            sortBy: name
+        };
+    });
+}
+
+function getCountryList(obj) {
     const q = $.Deferred();
+    if(OFFLINE) {
+        q.resolve(filterRawCountryData(_mockCountryData));
+        return q;
+    }
     $.get('https://restcountries.com/v3.1/all', function (data) {
-        let filtered =  data.map((c) => {
-            const name = c.name.common;
-            const code = c.cca3;
-            const capital = c.capital && c.capital.length > 0 ? (', ' + c.capital[0] ) : '';
-            return {
-                key: code,
-                val: name + capital,
-                sortBy: name
-            };
-        });
-        q.resolve(filtered);
+        q.resolve(filterRawCountryData(data));
     }).fail(function () {
         q.resolve([]);
     });
@@ -37,7 +53,7 @@ class Countries extends React.Component {
         getCountryList(_ref).then(function(res) {
             countriesList.length = 0;
             res.forEach(e => {
-                countries.set(e.key, e.val);
+                countries.set(e.key, e);
                 countriesList.push({
                     code: e.key,
                     name: e.val,
@@ -45,10 +61,12 @@ class Countries extends React.Component {
                 });
             });
             countriesList.sort((a,b) => a.sortBy < b.sortBy ? -1 : (a.sortBy > b.sortBy ? 1 : 0));
-            countriesList.unshift({code:'COL', name:'Colombia, Bogota'});
+            if (!OFFLINE) {
+                countriesList.unshift({code: 'COL', name: 'Colombia, Bogota', sortBy: 'Colombia'});
+            }
             countriesList.unshift({code:'_', name:' -Seleccione- '});
             _ref.setState({
-                name: countries.get('_'),
+                name: countries.get('_').val,
                 code: '_'
             });
         });
@@ -62,10 +80,10 @@ class Countries extends React.Component {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         this.setState({
-            name: countries.get(value),
+            name: countries.get(value).val,
             code: value
         });
-        this.props.onSelectCountry(value);
+        this.props.onSelectCountry(countries.get(value).capitalCountry);
     }
     render() {
         if(countries.size > 1) {
@@ -75,7 +93,6 @@ class Countries extends React.Component {
         }
         return <select name="code" value={this.state.code} onChange={this.handleChange}>
             <option value="_"> -Seleccione- </option>
-            <option value="COL">Colombia, Bogota</option>
         </select>;
     }
 

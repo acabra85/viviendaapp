@@ -1,3 +1,13 @@
+# Pre-Requisites
+
+1. install brew [brew.sh](https://brew.sh/)
+1. `brew update`
+1. `brew install pyenv`
+1. `pyenv install 3.9.12`
+1. `npm install -g @aws-amplify/cli`
+1. `pip3 install --user pipenv`
+1. `pip3 install boto3`
+
 # Assignment
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

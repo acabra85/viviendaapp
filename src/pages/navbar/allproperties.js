@@ -155,13 +155,13 @@ class AllProperties extends React.Component {
                 <div>
                     <table>
                         <thead>
-                            <tr>
-                                <td colSpan={6}>Propiedad</td>
-                                <td colSpan={4}>Propietario</td>
-                                <td>Acciones</td>
+                            <tr class="category_row">
+                                <th colSpan={6}>Propiedad</th>
+                                <th colSpan={4}>Propietario</th>
+                                <th>Acciones</th>
                             </tr>
-                            <tr >
-                                <th>Ciudad</th>
+                            <tr class="fila_">
+                                <th>Direccion</th>
                                 <th>Localidad</th>
                                 <th>Area (m2)</th>
                                 <th>Habitaciones</th>

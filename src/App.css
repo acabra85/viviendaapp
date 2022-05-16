@@ -40,3 +40,13 @@
 table th td{
   border-spacing: 15px !important;
 }
+
+.category_row {
+  background-color: blueviolet;
+  color: whitesmoke;
+}
+
+.pending_field {
+  border-color: red;
+  border-width: thick;
+}

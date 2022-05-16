@@ -1,6 +1,7 @@
 import React from 'react';
 import {API} from 'aws-amplify'
 import Countries from "./countries";
+import $ from "jquery"
 
 function transform(payload) {
     return {
@@ -22,7 +23,14 @@ function transform(payload) {
     }
 }
 
+function invalidProperty(property) {
+    return !property.country || property.country.length < 2;
+}
+
 async function createProperty(payload) {
+    if(invalidProperty(payload)) {
+        return Promise.reject("[Error]: Por favor seleccione una ciudad");
+    }
     return await API.post('apivivienda', '/inmueble', {
         headers: {
             'Content-Type': 'application/json'
@@ -35,16 +43,16 @@ class NewProperty extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            district: '_',
-            address: 'sasa',
+            district: '',
+            address: '',
             country: '',
-            price: 10,
-            rooms: 3,
-            area: 20,
-            owner_id: '111',
-            owner_name: 'dasdsa',
-            owner_phone: '31312321',
-            owner_email: 'adasda@gmail.com'
+            price: null,
+            rooms: null,
+            area: null,
+            owner_id: '',
+            owner_name: '',
+            owner_phone: '',
+            owner_email: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -63,17 +71,25 @@ class NewProperty extends React.Component {
     }
 
     handleCountryChange(code) {
+        let elm = $($('select[name="code"]')[0]);
+        if(code && code.length > 2 && elm.hasClass('pending_field')) {
+            elm.removeClass('pending_field');
+        }
         this.setState({
             country: code
         });
     }
 
     handleSubmit(event) {
+        let cityElm = $('select[name="code"]')[0];
         let elementById = document.getElementById('submit_registration_btn');
         elementById.disabled = true;
         event.preventDefault();
         createProperty(this.state).then(function (res) {
-            alert('registration created: ' + JSON.stringify(res));
+            alert('Propiedad Registrada');
+            $(cityElm).addClass('pending_field');
+        }).catch(reason => {
+            alert(reason);
         })
         .finally(() => elementById.disabled = false)
     }
