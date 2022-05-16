@@ -18,7 +18,7 @@ class PropertyService:
         owner = body['owner']
         properties = body['properties']
         property_ids = self.persistence.register_properties(owner, properties)
-        if property_ids:
+        if property_ids and isinstance(property_ids, list):
             return {
                 "result": "newProperty",
                 "property_ids": property_ids

@@ -1,21 +1,21 @@
 import os
-from botocore.exceptions import ClientError
 import pymysql
 import boto3
 import logging
+import traceback
 
 
 def get_db_pwd_parameter(parameter_name):
     print('extract access...')
-    ssm_client = boto3.client('ssm')
     try:
+        ssm_client = boto3.client('ssm')
         result = ssm_client.get_parameter(
             Name=parameter_name,
             WithDecryption=True
         )['Parameter']['Value']
         return result
-    except ClientError as e:
-        logging.error(e)
+    except Exception:
+        logging.error(traceback.format_exc())
         return None
 
 
@@ -24,10 +24,15 @@ def get_db_connection(auto_commit=True):
     db_rds_host = 'viviendadb1.cwfju1wpxqlz.us-east-1.rds.amazonaws.com'
     db_user = 'admin'
     db_name = 'viviendadb1'
-    db_password = get_db_pwd_parameter(os.getenv('dbpwd'))
+    env_var_pwd = os.getenv('dbpwd')
+    if not env_var_pwd:
+        logging.error('unable to retrieve db password key')
+        return None
+    db_password = get_db_pwd_parameter(env_var_pwd)
 
     if not db_password or len(db_password) < 3:
-        raise Exception("unable to retrieve db password: [" + db_password + "]")
+        logging.error("unable to retrieve db password: [" + str(db_password) + "]")
+        return None
 
     try:
         conn = pymysql.connect(host=db_rds_host,

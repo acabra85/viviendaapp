@@ -64,6 +64,8 @@ class PersistenceHelper:
             except Exception as e:
                 print(e)
                 return {"result": "failure to create DB"}
+            finally:
+                conn.close()
         return {"result": "clean_up_is_not_enabled"}
 
     def insert_property_registry(self, cur, owner_id, p_id):
@@ -98,7 +100,7 @@ class PersistenceHelper:
             with conn.cursor() as cur:
                 owner_id = owner['id']
                 if not self.create_or_get_owner(cur, owner, owner_id):
-                    return {"result": "unable to create owner"}
+                    return None
                 for prop in properties:
                     self.insert_new_property(cur, prop)
                     new_property_id = cur.lastrowid
@@ -111,7 +113,7 @@ class PersistenceHelper:
             return []
         finally:
             print("Closing Connection")
-            if conn.open:
+            if conn and conn.open:
                 conn.close()
 
     def get_properties_page(self, page, page_size, column, asc):

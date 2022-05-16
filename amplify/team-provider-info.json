@@ -36,7 +36,7 @@
         "funviviendaservice": {
           "secretsPathAmplifyAppId": "d4iiuw3h9e10g",
           "deploymentBucketName": "amplify-viviendaapp-dev-115016-deployment",
-          "s3Key": "amplify-builds/funviviendaservice-33626b42656438355059-build.zip"
+          "s3Key": "amplify-builds/funviviendaservice-6f63656566397856392f-build.zip"
         },
         "funstartdb": {
           "cleanDb": "TRUE",

@@ -1,4 +1,3 @@
-import json
 import traceback
 from serviceapp.property_service import PropertyService
 
@@ -11,7 +10,7 @@ def handler(event, context):
         internal_evt = event['event']
         service = PropertyService(type_call, internal_evt)
         result = service.process_request()
-        return json.dumps(result).encode(encoding='utf8')
+        return result
     except Exception:
         print(traceback.format_exc())
-        return json.dumps({"result": "Unable to process the request"}).encode(encoding='utf8')
+        return {"result": "Unable to process the request"}
