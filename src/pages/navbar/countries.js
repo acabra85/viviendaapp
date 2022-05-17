@@ -6,7 +6,7 @@ const _mockCountryData = [
     {name: {common: 'United Arab Emirates'}, cca3: 'UAE', capital: ['Dubai']},
     {name: {common: 'Poland'}, cca3: 'POL', capital: ['Warsaw']},
 ];
-const OFFLINE = true;
+const OFFLINE = false;
 
 function filterRawCountryData(data) {
     return data.map((c) => {
@@ -38,7 +38,7 @@ function getCountryList(obj) {
 }
 const countries = new Map();
 const countriesList = []
-countries.set('_', ' -Seleccione- ');
+countries.set('_', {key: '_', val: ' -Seleccione- ', capitalCountry: ' -Seleccione- ', sortBy: ''});
 
 class Countries extends React.Component {
     constructor(props, context) {
@@ -60,10 +60,7 @@ class Countries extends React.Component {
                     sortBy: e.sortBy
                 });
             });
-            countriesList.sort((a,b) => a.sortBy < b.sortBy ? -1 : (a.sortBy > b.sortBy ? 1 : 0));
-            if (!OFFLINE) {
-                countriesList.unshift({code: 'COL', name: 'Colombia, Bogota', sortBy: 'Colombia'});
-            }
+            countriesList.sort((a,b) => a.code === 'COL' ? -1 : (a.sortBy < b.sortBy ? -1 : (a.sortBy > b.sortBy ? 1 : 0)));
             countriesList.unshift({code:'_', name:' -Seleccione- '});
             _ref.setState({
                 name: countries.get('_').val,

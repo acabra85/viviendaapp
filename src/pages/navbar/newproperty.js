@@ -24,7 +24,7 @@ function transform(payload) {
 }
 
 function invalidProperty(property) {
-    return !property.country || property.country.length < 2;
+    return !property.country || property.country === ' -Seleccione- ';
 }
 
 async function createProperty(payload) {
@@ -72,7 +72,7 @@ class NewProperty extends React.Component {
 
     handleCountryChange(code) {
         let elm = $($('select[name="code"]')[0]);
-        if(code && code.length > 2 && elm.hasClass('pending_field')) {
+        if(code && code !== '' && elm.hasClass('pending_field')) {
             elm.removeClass('pending_field');
         }
         this.setState({
@@ -85,13 +85,28 @@ class NewProperty extends React.Component {
         let elementById = document.getElementById('submit_registration_btn');
         elementById.disabled = true;
         event.preventDefault();
+        let _ref = this;
         createProperty(this.state).then(function (res) {
             alert('Propiedad Registrada');
-            $(cityElm).addClass('pending_field');
+            _ref.cleanState();
         }).catch(reason => {
             alert(reason);
+            $(cityElm).addClass('pending_field');
         })
         .finally(() => elementById.disabled = false)
+    }
+
+    cleanState() {
+        let keys = Object.entries(this.state).map((k,v) => {
+            return { k: k[0], v: k[0] === 'country' ? '_' : ''}
+        });
+        let _ref = this;
+        keys.forEach(key => {
+            _ref.setState({
+                [key.k]: key.v
+            })
+        });
+        //$('select option[value="_"]').attr('selected', 'selected').change();
     }
 
     render() {
